@@ -49,10 +49,8 @@ def processImgPage(doc)
   end
 
   imgSrc = doc.search("//img[@id = 'fullImage']/@src")
-  #puts imgSrc
 
   imgName = File.basename(imgSrc.to_s)
-  #puts imgName
 
   fullImgName = dirName + "/" + imgName
   puts fullImgName
@@ -84,7 +82,6 @@ def processImgPage(doc)
   page += "</html>\n"
 
   fullPageName = dirName + "/" + dirName + ".html"
-  #puts fullPageName
   
   if !File.exist? fullPageName then
     puts "Writing out file" + fullPageName
@@ -96,7 +93,6 @@ def processImgPage(doc)
 end
 
 doc  = openPage(startPage, startUrl)
-#link = getLink(doc)
 
 thumbs = doc.css('div.thumbnail').collect
 i = 1
@@ -122,21 +118,3 @@ thumbs.each do |thumb|
    
 end
 
-#imgDoc = openPage(imgPage, link)
-#processImgPage(imgDoc)
-
-#thumbs = page.search("div.thumbnail").collect
-
-#firstThumb = thumbs.peek
-
-#theLink = firstThumb.css('a').map {|link| link['href']}
-
-#puts theLink[0]
-
-#imgAgent = Mechanize.new
-
-#imgPage = agent.get(theLink[0])
-
-#desc = imgPage.search("span.desc")
-
-#ap desc.text
