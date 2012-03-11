@@ -33,9 +33,8 @@ def getLink(doc)
   return theLink[0]
 end
 
-dupDirNum = 0
+$dupDirNum = 0
 def processImgPage(doc)
-  @@dupDirNum = 0
   desc = doc.css('span.desc')
   puts desc
 
@@ -48,10 +47,10 @@ def processImgPage(doc)
   if !File.exist? dirName then
     puts "Creating directory" + dirName
     Dir.mkdir(dirName)
-    @@dupDirNum = 0
+    $dupDirNum = 0
   else 
-    @@dupDirNum += 1
-    dirName += @@dupDirNum.to_s
+    $dupDirNum = $dupDirNum + 1
+    dirName += $dupDirNum.to_s
     puts "Creating directory" + dirName
     Dir.mkdir(dirName)
     
@@ -119,6 +118,4 @@ thumbs.each do |thumb|
     processImgPage(imgDoc)
     sleep(2)
   end
-   
 end
-
