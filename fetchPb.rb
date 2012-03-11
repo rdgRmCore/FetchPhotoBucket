@@ -33,7 +33,9 @@ def getLink(doc)
   return theLink[0]
 end
 
+dupDirNum = 0
 def processImgPage(doc)
+  @@dupDirNum = 0
   desc = doc.css('span.desc')
   puts desc
 
@@ -46,6 +48,13 @@ def processImgPage(doc)
   if !File.exist? dirName then
     puts "Creating directory" + dirName
     Dir.mkdir(dirName)
+    @@dupDirNum = 0
+  else 
+    @@dupDirNum += 1
+    dirName += @@dupDirNum.to_s
+    puts "Creating directory" + dirName
+    Dir.mkdir(dirName)
+    
   end
 
   imgSrc = doc.search("//img[@id = 'fullImage']/@src")
@@ -102,11 +111,6 @@ thumbs.each do |thumb|
   ap theLink
   imgPageName = "img" + i.to_s + ".html"
   i += 1
-
-  if i == 2 then
-    puts "Exiting loop early"
-    break
-  end
 
   if theLink.empty? then 
     puts "\nThe link is empty. Skipping " + imgPageName + "\n"
